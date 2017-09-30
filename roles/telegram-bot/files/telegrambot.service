@@ -1,0 +1,15 @@
+[Unit]
+Description=Telegram Bot
+Requires=multi-user.target network-online.target
+After=multi-user.target network-online.target
+
+[Service]
+Type=idle
+ExecStart=/srv/mqtt/mqtt2telegram/bot.py
+WorkingDirectory=/srv/mqtt/mqtt2telegram/
+User=mqtt
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

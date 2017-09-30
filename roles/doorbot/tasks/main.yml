@@ -20,7 +20,7 @@
   git:
     repo: 'https://github.com/HACManchester/FRED.git'
     dest: /srv/alfred/fred
-    version: updated-version
+    version: master
     force: true
   notify: Restart Alfred
 
@@ -64,6 +64,7 @@
 
 - name: Start alfred
   systemd:
+    enabled: yes
     state: started
     name: alfred
     daemon_reload: yes

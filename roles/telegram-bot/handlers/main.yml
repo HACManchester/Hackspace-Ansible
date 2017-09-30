@@ -1,0 +1,4 @@
+- name: Restart Telegram Bot
+  systemd:
+    name: telegrambot
+    state: restarted

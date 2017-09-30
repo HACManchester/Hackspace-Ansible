@@ -1,0 +1,60 @@
+- name: "Install prerequisites"
+  apt:
+    package: "{{item}}"
+    state: present
+    update_cache: true
+  with_items:
+    - git
+    - virtualenv
+
+- name: "Create mqtt user"
+  user:
+    name: mqtt
+    comment: "MQTT System User"
+    system: True
+    home: /srv/mqtt
+  notify: Restart Telegram Bot
+
+- name: "Pull Telegram Bot software from github"
+  git:
+    repo: 'https://github.com/HACManchester/mqtt2telegram.git'
+    dest: /srv/mqtt/mqtt2telegram
+    force: true
+  notify: Restart Telegram Bot
+
+- name: "Set up virtualenv"
+  pip:
+    requirements: /srv/mqtt/mqtt2telegram/requirements.txt
+    virtualenv: /srv/mqtt/mqtt2telegram/venv
+    virtualenv_python: python3
+  notify: Restart Telegram Bot
+
+- name: "Make the mqtt2telegram stuff be owned by the correct user"
+  file:
+    path: /srv/mqtt/mqtt2telegram
+    state: directory
+    owner: mqtt
+    group: mqtt
+    recurse: yes
+  notify: Restart Telegram Bot
+
+- name: "Put config file into place"
+  copy:
+    src: config.yaml
+    dest: /srv/mqtt/mqtt2telegram/config.yaml
+    owner: mqtt
+    group: mqtt
+    mode: 0600
+  notify: Restart Telegram Bot
+
+- name: Install telegrambot systemd unit file
+  copy:
+    src: telegrambot.service
+    dest: /etc/systemd/system/telegrambot.service
+
+- name: Start telegrambot
+  systemd:
+    enabled: yes
+    state: started
+    name: telegrambot
+    daemon_reload: yes

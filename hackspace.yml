@@ -6,7 +6,10 @@
 - hosts: alvin
   roles:
     - doorbot
+  tags:
+    - doorbot
 
 - hosts: acidburn
   roles:
     - mosquitto-server
+    - telegram-bot
