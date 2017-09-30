@@ -1,0 +1,69 @@
+- name: "Install prerequisites"
+  apt:
+    package: "{{item}}"
+    state: present
+    update_cache: true
+  with_items:
+    - git
+    - virtualenv
+
+- name: "Create alfred user"
+  user:
+    name: alfred
+    comment: "ALFRED System User"
+    system: True
+    home: /srv/alfred
+    groups: dialout
+  notify: Restart Alfred
+
+- name: "Pull ALFRED software from github"
+  git:
+    repo: 'https://github.com/HACManchester/FRED.git'
+    dest: /srv/alfred/fred
+    version: updated-version
+    force: true
+  notify: Restart Alfred
+
+- name: "Set up virtualenv"
+  pip:
+    requirements: /srv/alfred/fred/requirements.txt
+    virtualenv: /srv/alfred/fred/venv
+    virtualenv_python: python3
+  notify: Restart Alfred
+
+- name: "Make the freddy stuff be owned by the correct alfred user"
+  file:
+    path: /srv/alfred/fred
+    state: directory
+    owner: alfred
+    group: alfred
+    recurse: yes
+  notify: Restart Alfred
+
+- name: "Put alfred config file into place"
+  copy:
+    src: config.yaml
+    dest: /srv/alfred/fred/config.yaml
+    owner: alfred
+    group: alfred
+    mode: 0600
+  notify: Restart Alfred
+
+- name: Make sure theres a cronjob to pull the memberdb
+  cron:
+    name: Pull MemberDB
+    user: alfred
+    minute: "*/5"
+    job: /srv/alfred/fred/pull_members_from_wordpress.py
+    state: present
+
+- name: Install alfred systemd unit file
+  copy:
+    src: alfred.service
+    dest: /etc/systemd/system/alfred.service
+
+- name: Start alfred
+  systemd:
+    state: started
+    name: alfred
+    daemon_reload: yes

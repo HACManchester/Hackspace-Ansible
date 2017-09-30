@@ -1,0 +1,12 @@
+---
+- hosts: all
+  roles:
+    - hackspaceusers
+
+- hosts: alvin
+  roles:
+    - doorbot
+
+- hosts: acidburn
+  roles:
+    - mosquitto-server

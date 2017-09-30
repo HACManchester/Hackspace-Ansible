@@ -2,5 +2,5 @@
 
 - name: "Install MQTT server package"
   apt:
-    name: mosquitto-server
+    name: mosquitto
     update_cache: yes

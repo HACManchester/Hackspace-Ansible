@@ -1,0 +1,15 @@
+[Unit]
+Description=alfred
+Requires=dev-ttyAMA0.device multi-user.target network-online.target
+After=dev-ttyAMA0.device multi-user.target network-online.target
+
+[Service]
+Type=idle
+ExecStart=/srv/alfred/fred/fred.py
+WorkingDirectory=/srv/alfred/fred/
+User=alfred
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

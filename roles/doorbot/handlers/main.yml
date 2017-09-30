@@ -1,0 +1,4 @@
+- name: Restart Alfred
+  systemd:
+    name: alfred
+    state: restarted

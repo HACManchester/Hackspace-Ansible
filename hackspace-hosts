@@ -1,4 +1,2 @@
----
-all:
-  hosts:
-    alvin
+alvin
+acidburn
