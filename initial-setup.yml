@@ -3,4 +3,8 @@
 
 - hosts: all
   roles:
-    - hackspace-users
+    - hackspaceusers
+
+- hosts: acidburn
+  roles:
+    - mosquitto-server

@@ -1,0 +1,14 @@
+- name: "Add User for {{user.username}}"
+  user:
+    name: "{{user.username}}"
+    comment: "{{user.name}}"
+    groups: sudo
+    state: present
+    shell: /bin/bash
+    password: "{{user.password}}"
+
+- name: "Add SSH Key for {{user.username}}"
+  authorized_key:
+    user: "{{user.username}}"
+    state: present
+    key: "{{user.ssh_pubkey}}"

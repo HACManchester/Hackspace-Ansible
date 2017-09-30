@@ -1,2 +1,4 @@
-alvin.hackspace
-acidburn.hackspace
+---
+all:
+  hosts:
+    alvin
