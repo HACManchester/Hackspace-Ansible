@@ -1,0 +1,36 @@
+---
+- include_vars:
+    file: users.yml
+
+- name: "Add User for {{item.value.username}}"
+  user:
+    name: "{{item.key}}"
+    comment: "{{item.value.name}}"
+    groups: sudo
+    state: present
+    password: "{{item.value.password}}"
+  with_dict: users
+
+- name: "Add SSH Key for {{item.value.username}}"
+  authorized_key:
+    user: "{{item.value.username}}"
+    state: present
+    key: "{{item.value.ssh_pubkey}}"
+  with_dict: users
+
+- name: Remove default users if they exist
+  user:
+    name: "{{item}}"
+    state: absent
+  with_items:
+    - pi
+    - debian
+    - fedora
+
+- name: Allow passwordless sudo for sudo users
+  lineinfile:
+    dest: /etc/sudoers
+    stat: present
+    regexp: '^%sudo'
+    line: '%sudo  ALL=(ALL:ALL) NOPASSWD: ALL'
+    validate: visudo -cf %s

@@ -1,0 +1,6 @@
+---
+# turn ask-pass, ask-sudo-pass on
+
+- hosts: all
+  roles:
+    - hackspace-users
