@@ -2,5 +2,8 @@
 
 - name: "Install MQTT server package"
   apt:
-    name: mosquitto
+    name: "{{item}}"
     update_cache: yes
+  with_items:
+    - mosquitto
+    - mosquitto-clients
