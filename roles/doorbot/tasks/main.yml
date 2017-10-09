@@ -54,7 +54,7 @@
     name: Pull MemberDB
     user: alfred
     minute: "*/5"
-    job: /srv/alfred/fred/pull_members_from_wordpress.py
+    job: /srv/alfred/fred/venv/bin/python /srv/alfred/fred/pull_members_from_wordpress.py
     state: present
 
 - name: Install alfred systemd unit file
