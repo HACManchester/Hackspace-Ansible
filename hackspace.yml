@@ -13,3 +13,7 @@
   roles:
     - mosquitto-server
     - telegram-bot
+
+- hosts: bikeshed.hacman.org.uk
+  roles:
+    - vmhost

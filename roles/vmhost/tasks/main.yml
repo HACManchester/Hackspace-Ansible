@@ -1,0 +1,19 @@
+---
+- include_vars:
+    file: users.yml
+
+- name: "Install packages"
+  apt:
+    name: "{{item}}"
+    state: installed
+    update_cache: yes
+  with_items:
+    - qemu-kvm
+    - libvirt-clients
+    - libvirt-daemon-system
+
+- name: "Add users to libvirt groups"
+  user:
+    name: "{{item.username}}"
+    groups: libvirt,kvm
+  with_items: "{{users}}"
