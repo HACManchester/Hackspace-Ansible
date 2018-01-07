@@ -3,6 +3,7 @@
     name: "{{user.username}}"
     comment: "{{user.name}}"
     groups: sudo
+    append: yes
     state: present
     shell: /bin/bash
     password: "{{user.password}}"

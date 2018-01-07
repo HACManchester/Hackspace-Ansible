@@ -16,4 +16,13 @@
   user:
     name: "{{item.username}}"
     groups: libvirt,kvm
+    append: yes
   with_items: "{{users}}"
+
+- name: "Grab some install media"
+  get_url:
+    url: "{{item}}"
+    dest: /var/lib/libvirt/images/
+  with_items:
+    - https://cdimage.debian.org/debian-cd/current/multi-arch/iso-cd/debian-9.3.0-amd64-i386-netinst.iso
+    - https://cdimage.debian.org/cdimage/openstack/current-9/debian-9-openstack-amd64.qcow2
