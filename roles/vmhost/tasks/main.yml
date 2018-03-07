@@ -1,7 +1,4 @@
 ---
-- include_vars:
-    file: users.yml
-
 - name: "Install packages"
   apt:
     name: "{{item}}"
@@ -11,6 +8,7 @@
     - qemu-kvm
     - libvirt-clients
     - libvirt-daemon-system
+    - iptables-persistent
 
 - name: "Add users to libvirt groups"
   user:

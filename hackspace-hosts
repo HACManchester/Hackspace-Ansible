@@ -1,3 +1,7 @@
 alvin
 acidburn
 bikeshed.hacman.org.uk
+wordpress.bikeshed.hacman.org.uk  ansible_port=8022
+
+[wordpress]
+wordpress.bikeshed.hacman.org.uk

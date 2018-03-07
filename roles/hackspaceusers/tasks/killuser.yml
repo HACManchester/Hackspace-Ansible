@@ -1,0 +1,10 @@
+---
+- command: pkill -u "{{user}}"
+  args:
+    warn: no
+  ignore_errors: yes
+
+- user:
+    name: "{{user}}"
+    state: absent
+    force: yes

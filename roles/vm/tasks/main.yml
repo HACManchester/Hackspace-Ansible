@@ -1,0 +1,6 @@
+---
+- name: Set up iptables for NAT
+  include: iptables.yml
+  with_dict: "{{ vm['nat'] }}"
+  when: '"nat" in vm'
+  delegate_to: "{{ vm['host'] }}"

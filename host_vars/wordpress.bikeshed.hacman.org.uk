@@ -1,0 +1,6 @@
+---
+ansible_port: 8022
+vm:
+  host: bikeshed.hacman.org.uk
+  nat:
+    22: 8022

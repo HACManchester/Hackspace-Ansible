@@ -1,7 +1,4 @@
 ---
-- include_vars:
-    file: users.yml
-
 - name: "Add users"
   include: adduser.yml user="{{item}}"
   with_items: "{{users}}"
@@ -15,9 +12,7 @@
     validate: visudo -cf %s
 
 - name: Remove default users if they exist
-  user:
-    name: "{{item}}"
-    state: absent
+  include: killuser.yml user="{{item}}"
   with_items:
     - pi
     - debian

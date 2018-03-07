@@ -1,0 +1,9 @@
+---
+- name: Install packages
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - nginx-full
+    - mariadb-server
+    - php-fpm

@@ -3,4 +3,7 @@
 
 - hosts: all
   roles:
+    - base
     - hackspaceusers
+  vars_files:
+    - vars/users.yml

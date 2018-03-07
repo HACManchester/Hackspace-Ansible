@@ -1,7 +1,10 @@
 ---
 - hosts: all
   roles:
+    - base
     - hackspaceusers
+  vars_files:
+    - vars/users.yml
 
 - hosts: alvin
   roles:
@@ -14,6 +17,16 @@
     - mosquitto-server
     - telegram-bot
 
+- hosts: wordpress.bikeshed.hacman.org.uk
+  roles:
+    - wordpress
+
+- hosts: all
+  roles:
+    - { role: vm, when: vm is defined }
+
 - hosts: bikeshed.hacman.org.uk
   roles:
     - vmhost
+  vars_files:
+    - vars/users.yml
