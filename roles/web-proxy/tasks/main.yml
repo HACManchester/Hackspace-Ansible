@@ -1,0 +1,10 @@
+- name: Install nginx
+  apt:
+    name: nginx-full
+    state: present
+
+- name: Nginx proxy config files
+  template:
+    src: nginx-proxy.conf
+    dest: "{{item.key}}.conf"
+  with_dict: "{{web_config}}"

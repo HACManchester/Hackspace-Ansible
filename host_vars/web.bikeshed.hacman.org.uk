@@ -1,0 +1,20 @@
+---
+ansible_port: 8023
+vm:
+  host: bikeshed.hacman.org.uk
+  nat:
+    22: 8023
+    80: 80
+    443: 443
+web:
+  hacman.org.uk:
+    default: true
+    proxy: true
+    host: wordpress.bikeshed.hacman.org.uk
+    port: 80
+    ssl: true
+  wiki.hacman.org.uk:
+    proxy: true
+    host: wiki.bikeshed.hacman.org.uk
+    port: 80
+    ssl: true

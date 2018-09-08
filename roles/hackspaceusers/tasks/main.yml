@@ -3,14 +3,6 @@
   include: adduser.yml user="{{item}}"
   with_items: "{{users}}"
 
-- name: Allow passwordless sudo for sudo users
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: '^%sudo'
-    line: '%sudo  ALL=(ALL:ALL) NOPASSWD: ALL'
-    validate: visudo -cf %s
-
 - name: Remove default users if they exist
   include: killuser.yml user="{{item}}"
   with_items:

@@ -1,7 +1,21 @@
 alvin
 acidburn
+
+[vmhost:children]
+hz-vmhost
+
+[vm:children]
+hz-vm
+
+[hz-vmhost]
 bikeshed.hacman.org.uk
-wordpress.bikeshed.hacman.org.uk  ansible_port=8022
+
+[hz-vm]
+wordpress.bikeshed.hacman.org.uk
+web.bikeshed.hacman.org.uk
 
 [wordpress]
 wordpress.bikeshed.hacman.org.uk
+
+[web]
+web.bikeshed.hacman.org.uk
