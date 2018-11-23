@@ -42,8 +42,8 @@
 
 - name: "Put alfred config file into place"
   copy:
-    src: config.yaml
-    dest: /srv/alfred/fred/config.yaml
+    src: config.sh
+    dest: /srv/alfred/fred/config.sh
     owner: alfred
     group: alfred
     mode: 0600
